@@ -7,7 +7,7 @@ lspci -knn | grep Net
 #Add a "non-free" component to /etc/apt/sources.list, for example:
 
 # Debian 9 "Stretch"
-deb http://httpredir.debian.org/debian/ stretch main contrib non-free
+# deb http://httpredir.debian.org/debian/ stretch main contrib non-free
 
 # Update the list of available packages and install the firmware-iwlwifi package:
 
