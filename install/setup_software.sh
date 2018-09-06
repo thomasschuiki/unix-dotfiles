@@ -6,7 +6,7 @@ apt install -y laptop-mode-tools powertop
 apt install -y curl git neovim redshift redshift-gtk
 
 # install i3
-apt install -y i3
+apt install -y i3 i3blocks i3-gaps
 
 # update firefox
 # wait for firefox 60esr
