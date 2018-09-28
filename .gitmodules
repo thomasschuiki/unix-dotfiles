@@ -1,3 +1,0 @@
-[submodule "submodules/mate-terminal-colors"]
-	path = submodules/mate-terminal-colors
-	url = git@github.com:thomaseitler/mate-terminal-colors-solarized.git
