@@ -11,6 +11,8 @@ declare -a software=(
 "i3"
 "i3blocks"
 "firefox"
+"software-properties-common"
+"dirmngr"
 )
 
 ## now loop through the above array
