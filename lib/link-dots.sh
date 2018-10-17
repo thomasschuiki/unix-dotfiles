@@ -1,9 +1,12 @@
 #!/bin/bash
 
 echo "Linking dotfiles..."
+dotfiles="$HOME/dotfiles/files/.*"
 
-for f in ../files/.*; do
+for f in ${dotfiles}; do
   fname=$(basename ${f})
+  #echo "$f"
+  #echo "$fname"
   if [[ "${fname}" == "." || "${fname}" == ".." ]]; then
     continue;
   fi
