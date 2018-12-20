@@ -1,0 +1,7 @@
+[user]
+    email = thomas.eitler@gmail.com
+    name = Thomas Eitler
+[core]
+    eol = lf
+    autocrlf = input
+    editor=vim
