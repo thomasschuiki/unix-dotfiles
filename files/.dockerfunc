@@ -59,7 +59,7 @@ go(){
         -w /usr/src/myapp \
         -v /go:/go \
         --name "go-cli" \
-        --network host \
+        --net="host" \
         -e CGO_ENABLED=0 \
         -e GOOS=linux \
         -e GOARCH=amd64 \
