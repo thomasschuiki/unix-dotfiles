@@ -66,3 +66,16 @@ go(){
         -e GOBIN=/go/bin \
         go-img:3.0 "$@" 
 }
+
+mongodb(){
+    del_stopped mongodb
+
+    docker run --rm -d \
+        -v /srv/mongo/data/db:/data/db \
+        -p 27017:27017 \
+        --name mongodb \
+        --hostname MONGODB \
+        --net=bridge \
+        --expose=27017 \
+        mongo --bind_ip_all
+}
