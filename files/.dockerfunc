@@ -47,10 +47,13 @@ relies_on(){
 vue(){
     del_stopped vue
 
-    docker run -d \
+    docker run --rm -it \
 		-v /etc/localtime:/etc/localtime:ro \
+        -v "$PWD":"$PWD" \
+        -w "$PWD" \
+        -u "$(id -u)" \
 		--name vue \
-        vue:3.0
+        tom/vue:1.0 "$@"
 }
 
 go(){
