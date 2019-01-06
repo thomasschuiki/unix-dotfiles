@@ -67,7 +67,7 @@ go(){
         -e GOOS=linux \
         -e GOARCH=amd64 \
         -e GOBIN=/go/bin \
-        go-img:3.0 "$@" 
+        tom/go-cli:1.0 "$@" 
 }
 
 mongodb(){
