@@ -45,15 +45,24 @@ relies_on(){
 #
 
 vue(){
-    del_stopped vue
-
     docker run --rm -it \
 		-v /etc/localtime:/etc/localtime:ro \
         -v "$PWD":"$PWD" \
         -w "$PWD" \
         -u "$(id -u)" \
 		--name vue \
-        tom/vue:1.0 "$@"
+        tom/vue:1.1 vue "$@"
+}
+
+yarn(){
+    docker run --rm -it \
+		-v /etc/localtime:/etc/localtime:ro \
+        -v "$PWD":"$PWD" \
+        --net="host" \
+        -w "$PWD" \
+        -u "$(id -u)" \
+		--name yarn \
+        tom/vue:1.1 yarn "$@"
 }
 
 go(){
