@@ -67,8 +67,8 @@ yarn(){
 
 go(){
     docker run --rm -it \
-        -v "$PWD":/usr/src/myapp \
-        -w /usr/src/myapp \
+        -v "$PWD":"$PWD" \
+        -w "$PWD" \
         -v /go:/go \
         --name "go-cli" \
         --net="host" \
