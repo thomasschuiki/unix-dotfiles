@@ -1,5 +1,5 @@
 ! font settings
-URxvt.font:             xft:hack:pixelsize=14
+URxvt.font:             xft:hack:pixelsize=12
 URxvt.letterSpace:      -1
 
 URxvt.iso14755: false
