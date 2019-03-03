@@ -4,15 +4,5 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.g
 
 # create config directory
 mkdir -p ~/.config/nvim
-cat << EOF > ~/.config/nvim/init.vim
-
-" Specify a directory for plugins
-call plug#begin('~/.local/share/nvim/plugged')
-
-Plug 'morhetz/gruvbox'
-
-" Initialize plugin system
-call plug#end()
-EOF
-
+echo 'Link Config Files and then'
 echo 'Run :PlugInstall from vim'
