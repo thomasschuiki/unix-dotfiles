@@ -54,9 +54,11 @@ alias grep='grep --color=auto'
 
 # turn off CTRL+s
 stty stop undef
+stty -ixon # Disable ctrl-s and ctrl-q.
 
+HISTSIZE= HISTFILESIZE= # Infinite history.
 # default terminal
-export TERMINAL=urxvt
+export TERMINAL=st
 
 # load configs
 
