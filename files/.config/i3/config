@@ -189,6 +189,7 @@ set $purple #b16286
 set $aqua #689d68
 set $gray #a89984
 set $darkgray #1d2021
+set $white #ffffff
 
 # font used by i3 for titles and bars
 font pango:Hack 10
@@ -198,8 +199,9 @@ hide_edge_borders both
 
 #start of bar section
 bar {
+    font pango:mono 10
     position bottom
-    status_command SCRIPT_DIR="$HOME/.config/i3/blocklets" i3blocks -c "$HOME/.config/i3/i3blocks.conf"
+    status_command i3blocks
     strip_workspace_numbers yes
     colors {
         # bar background color
