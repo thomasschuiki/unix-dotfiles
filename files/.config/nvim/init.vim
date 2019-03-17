@@ -96,8 +96,16 @@ if exists('+colorcolumn')
 endif
 
 "" Backup and swap files
-set backupdir=/tmp// " where to put backup files.
-set undodir=/tmp//
-set directory=/tmp// " where to put swap files.
+set backupdir=/tmp/ " where to put backup files.
+set undodir=/tmp/
+set directory=/tmp/ " where to put swap files.
 
+"" Undoing
+set undofile
+set undolevels=100
+set undoreload=1000
 
+"" Mouse Settings
+if has('mouse')
+  set mouse=a
+endif
