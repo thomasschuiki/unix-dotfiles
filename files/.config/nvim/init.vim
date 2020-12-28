@@ -4,12 +4,17 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'morhetz/gruvbox'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'pearofducks/ansible-vim', { 'do': 'cd ./UltiSnips; ./generate.py' }
+Plug 'scrooloose/nerdcommenter'
 
 " Initialize plugin system
 call plug#end()
 
 " Gruvbox Config
 let g:gruvbox_contrast_dark='soft'
+
+" Ansible Settings
+au BufRead,BufNewFile */playbooks/*.yml set filetype=yaml.ansible
 
 "" General
 syntax on
