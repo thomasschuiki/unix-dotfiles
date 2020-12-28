@@ -57,8 +57,6 @@ stty stop undef
 stty -ixon # Disable ctrl-s and ctrl-q.
 
 HISTSIZE= HISTFILESIZE= # Infinite history.
-# default terminal
-export TERMINAL=st
 
 # load configs
 
@@ -75,3 +73,8 @@ done
 unset file
 
 [ -s "/home/tom/.scm_breeze/scm_breeze.sh" ] && source "/home/tom/.scm_breeze/scm_breeze.sh"
+
+# directory colors
+export LS_OPTIONS='--color=auto'
+eval "$(dircolors -b)"
+alias ls='ls $LS_OPTIONS'
