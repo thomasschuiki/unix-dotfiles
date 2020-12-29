@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  connection: local
+  become: true
+
+  tasks:
+  - name: install htop
+    package:
+      name: htop
+      state: present
+
+  - name: install golang
+    package:
+      name: go
+      state: present
