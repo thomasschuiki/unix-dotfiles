@@ -2,7 +2,8 @@
 - hosts: localhost
   connection: local
   become: true
-
+  roles:
+    - { role: aria2}
   tasks:
   - name: install htop
     package:

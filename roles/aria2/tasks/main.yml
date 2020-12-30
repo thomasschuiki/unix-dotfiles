@@ -1,0 +1,17 @@
+---
+# tasks file for roles/aria2
+- name: Install aria2
+  package:
+    name: aria2
+    state: present
+
+- name: Create config dir if it doesn't exist
+  file:
+    path: "{{ lookup('env', 'XDG_CONFIG_HOME') }}/aria2"
+    state: directory
+    mode: '0755'
+
+- name: Copy aria2 configuration file
+  copy:
+    src: aria2.conf
+    dest: "{{ lookup('env', 'XDG_CONFIG_HOME') }}/aria2/aria2.conf"
