@@ -1,0 +1,4 @@
+ci: pipeline ci
+co: mr checkout
+repos: |
+    !glab api projects?membership=true | jq -r '.[].path_with_namespace'
