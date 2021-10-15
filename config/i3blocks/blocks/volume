@@ -1,0 +1,32 @@
+#!/bin/sh
+
+# SINKS=($(pactl list short sinks | awk '{ print $2 }'))
+ACTIVESINK="${BLOCK_INSTANCE}"
+
+case $BLOCK_BUTTON in
+#	1) setsid "$TERMINAL" -e alsamixer & ;;
+	1) notify-send $ACTIVESINK ;;
+	2) pactl -- set-sink-mute $ACTIVESINK toggle ;;
+	# 4) amixer sset Master 2%+ >/dev/null 2>/dev/null ;;
+	# 5) amixer sset Master 2%- >/dev/null 2>/dev/null ;;
+    4) pactl -- set-sink-volume $ACTIVESINK +2% ;;
+	5) pactl -- set-sink-volume $ACTIVESINK -2% ;;
+	3) pgrep -x dunst >/dev/null && notify-send "📢 Volume module" "\- Shows volume 🔊, 🔇 if muted.
+- Middle click to mute.
+- Scroll to change."
+esac
+volstat=$(pactl list sinks | grep -A 8 "Name: $ACTIVESINK" | awk -F/ '/Volume:/ {print $2}')
+if [ -z "$volstat" ]; then
+    volstat="0%"
+    icon=🔇
+fi
+# volstat="$(amixer get Master)"
+# echo "$volstat" | grep "\[off\]" >/dev/null && printf "🔇\\n" && exit
+
+# vol=$(echo "$volstat" | grep -o "\[[0-9]\+%\]" | sed "s/[^0-9]*//g;1q")
+case "$ACTIVESINK" in
+	"alsa_output.usb-Logitech_G533_Gaming_Headset-00.analog-stereo"* ) icon="🎧" ;;
+	"alsa_output.pci-0000_0b_00.4.analog-stereo"* ) icon="🔊" ;;
+esac
+
+printf "%s %s\n" "$icon" "$(echo $volstat | xargs)"

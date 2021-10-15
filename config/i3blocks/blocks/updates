@@ -1,0 +1,48 @@
+#!/usr/bin/sh
+
+get_boot_kernel() {
+    get_version=0
+    for field in $(file /boot/vmlinuz*); do
+        if [ $get_version -eq 1 ]; then
+            printf "$field"
+            return
+        elif [ "$field" = version ]; then
+            # the next field contains the version
+            get_version=1
+        fi
+    done
+}
+
+is_reboot_required() {
+    libs=$(lsof -n +c 0 2> /dev/null | grep 'DEL.*lib' | awk '1 { print $1 ": " $NF }' | sort -u)
+    reboot=false
+    if [ -n "$libs" ]; then
+        printf "# LIBS: reboot required\n%s" "$libs"
+        reboot=true
+    fi
+
+    active_kernel=$(uname -r)
+    current_kernel=$(get_boot_kernel)
+    if [ "$active_kernel" != "$current_kernel" ]; then
+        printf "$active_kernel < $current_kernel"
+        printf "# KERNEL: reboot required"
+        reboot=true
+    fi
+
+    if [ "$reboot" = false ]; then
+        printf "no reboot required"
+    fi
+}
+
+#reboot_required=$(is_reboot_required)
+updates=$(checkupdates)
+count=$(echo -n "$updates" | wc -l)
+icon="🚯"
+
+case $BLOCK_BUTTON in
+    1) notify-send "$count updates" "$updates";;
+    3) notify-send "Is reboot required?" "$(is_reboot_required)";;
+esac
+
+printf "%s %s\n" "$icon" "$count"
+
