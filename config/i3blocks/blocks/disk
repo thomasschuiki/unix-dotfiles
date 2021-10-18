@@ -8,7 +8,7 @@ location=${1:-/}
 [ -d "$location" ] || exit
 
 case $BLOCK_BUTTON in
-	1) notify-send "$icon Disk space" "$(df -h --output=target,used,size)" ;;
+	1) notify-send "$icon Disk space" "$(df -h --output=target,used,size "$location")" ;;
 	3) notify-send "$icon Disk module" "\- Shows used hard drive space.
 - Click to show all disk info." ;;
 esac
@@ -18,5 +18,19 @@ case "$location" in
 	"/mnt"* ) icon="💾" ;;
 esac
 
+dfresult=$(df -h "$location")
+percentused=$(echo "$dfresult" | awk ' /[0-9]/ {print $5}' | tr -d '%')
+text="$(echo "$dfresult" | awk ' /[0-9]/ {print $3 "/" $2}')"
+medlimit=80
+highlimit=90
+color="#928374"
+medcolor="#ebc17a"
+highcolor="#bc5653"
+if [ "$percentused" -ge "$medlimit" ]; then
+  color=$medcolor
+fi
+if [ "$percentused" -ge "$highlimit" ]; then
+  color=$highcolor
+fi
 #printf "%s: %s\n" "$icon" "$(df -h "$location" | awk ' /[0-9]/ {print $3 "/" $2}')"
-printf "%s %s\n" "$icon" "$(df -h "$location" | awk ' /[0-9]/ {print $3 "/" $2}')"
+printf "%s %s\n" "$icon" "<span foreground=\"$color\">$text</span>" 
