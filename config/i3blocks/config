@@ -36,7 +36,7 @@ separator_block_width=7
 [updates]
 interval=900
 min_width=A A
-color=#ebc17a
+color=#928374
 
 [separator]
 
@@ -47,7 +47,7 @@ color=#ebc17a
 [cpu]
 interval=10
 min_width=100.00%
-color=#ebc17a
+color=#928374
 
 [separator]
 
@@ -56,7 +56,7 @@ color=#ebc17a
 # The type defaults to "mem" if the instance is not specified.
 [memory]
 interval=30
-color=#ebc17a
+color=#928374
 
 [separator]
 
@@ -75,7 +75,7 @@ color=#ebc17a
 [disk]
 instance=/home
 interval=60
-color=#ebc17a
+color=#928374
 
 [separator]
 
@@ -84,20 +84,20 @@ instance=alsa_output.pci-0000_0b_00.4.analog-stereo
 interval=once
 signal=10
 max_width=🔊 100%
-color=#ebc17a
+color=#928374
 
 [volume]
 instance=alsa_output.usb-Logitech_G533_Gaming_Headset-00.analog-stereo
 interval=once
 signal=10
 max_width=🎧 100%
-color=#ebc17a
+color=#928374
 
 [separator]
 
 [clock]
 interval=1
-color=#ebc17a
+color=#928374
 
 
 #lightred #fb4934
