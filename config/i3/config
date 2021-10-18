@@ -18,45 +18,6 @@ set $aqua #c9dfff
 set $gray #636363
 set $darkgray #151515
 set $white #d9d9d9
-# set primary gruvbox colorscheme colors
-#set $bg #282828
-#set $red #cc241d
-#set $green #98971a
-#set $yellow #d79921
-#set $blue #458588
-#set $purple #b16286
-#set $aqua #689d68
-#set $gray #a89984
-#set $darkgray #1d2021
-#set $white #ffffff
-
-# Relaxed Theme Colors
-#set_from_resource $bg background
-#set_from_resource $fg foreground
-# Black
-#set_from_resource $black1 color0
-#set_from_resource $black2 color8
-# Red
-#set_from_resource $red1 color1
-#set_from_resource $red2 color9
-# Green
-#set_from_resource $green1 color2
-#set_from_resource $green2 color10
-# Yellow
-#set_from_resource $yellow1 color3
-#set_from_resource $yellow2 color11
-# Blue
-#set_from_resource $blue1 color4
-#set_from_resource $blue2 color12
-# Magenta
-#set_from_resource $magenta1 color5
-#set_from_resource $magenta2 color13
-# Cyan
-#set_from_resource $cyan1 color6
-#set_from_resource $cyan2 color14
-# White
-#set_from_resource $white1 color7
-#set_from_resource $white2 color15
 
 # font used by i3 for titles and bars
 font pango:NotoSans 10
@@ -271,7 +232,7 @@ bar {
         # bar background color
         background $darkgray
         # text color used for blocks that do not have a color specified.
-        statusline $yellow
+        statusline $gray
         # workspaces section
         #                    border  	  backgr. 	text
         focused_workspace    $aqua      $aqua 		$darkgray
