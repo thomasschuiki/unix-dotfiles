@@ -56,6 +56,34 @@ local function set_keymaps()
   map('n', '<leader>j', '<CMD>wincmd j<CR>', options)
   map('n', '<leader>k', '<CMD>wincmd k<CR>', options)
   map('n', '<leader>l', '<CMD>wincmd l<CR>', options)
+  
+  -- jump in checklist
+  map('', '<C-n>', '<CMD>cnext<CR>', options)
+  map('', '<C-m>', '<CMD>cprevious<CR>', options)
+  map('n', '<leader>a', '<CMD>cclose<CR>', options)
+
+  -- toggle search highlights
+  map('', '<leader>h', '<CMD>noh<CR>', options)
+  
+  -- move selection around
+  map('v', 'J', "<CMD>m '>+1<CR>gv=gv", options)
+  map('v', 'K', "<CMD>m '<-2<CR>gv=gv", options)
+  map('i', '<C-j>', "<ESC><CMD>m .+1<CR>==", options)
+  map('i', '<C-k>', "<ESC><CMD>m .-2<CR>==", options)
+  map('n', '<leader>j', "<CMD>m .+1<CR>==", options)
+  map('n', '<leader>k', "<CMD>m .-2<CR>==", options)
+
+  -- copy whole line
+  map('n', 'Y', 'yg_', options)
+
+  -- add double quotes around a selection
+  map('v', '"', '<ESC>`a"<ESC>`<i"<ESC>', options)  
+
+  -- keep cursor centered while searching
+  map('n', 'n', 'nzzzv', options)
+  map('n', 'N', 'Nzzzv', options)
+  map('n', 'J', 'mzJ`z', options)
+  
 end
 
 
