@@ -142,6 +142,7 @@ local function init()
 			-- };
 		})
 	end
+  setup_diagnostics()
 end
 
 return {
