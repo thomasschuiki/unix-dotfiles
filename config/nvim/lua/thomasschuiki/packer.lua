@@ -3,89 +3,99 @@ local fn = vim.fn
 local packer = nil
 
 local function packer_verify()
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+	local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({ 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path })
-    cmd 'packadd packer.nvim'
-  end
+	if fn.empty(fn.glob(install_path)) > 0 then
+		fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
+		cmd("packadd packer.nvim")
+	end
 end
 
 local function packer_startup()
-  if packer == nil then
-    packer = require'packer'
-    packer.init()
-  end
+	if packer == nil then
+		packer = require("packer")
+		packer.init()
+	end
 
-  local use = packer.use
-  packer.reset()
+	local use = packer.use
+	packer.reset()
 
-    -- Packer can manage itself
-    use 'wbthomason/packer.nvim'
+	-- Packer can manage itself
+	use("wbthomason/packer.nvim")
 
-    -- Language Support --
-    use 'neovim/nvim-lspconfig'
-    use {
-        'kabouzeid/nvim-lspinstall',
-        requires = { 'neovim/nvim-lspconfig' }
-    }
-    use {
-        'hrsh7th/nvim-compe',
-        requires = { 'neovim/nvim-lspconfig' },
-        config = function () 
-          require'thomasschuiki.plugins.compe'.init()
-        end
-    }
-    use {
-        'hrsh7th/vim-vsnip',
-        requires = { 'hrsh7th/nvim-compe' }
-    }
-    use {
-        'nvim-treesitter/nvim-treesitter',
-        requires = { 'neovim/nvim-lspconfig' },
-        run = ":TSUpdate",
-        config = function () 
-          require'thomasschuiki.plugins.treesitter'.init()
-        end
-    }
+	-- Language Support --
+	use("neovim/nvim-lspconfig")
+	use({
+		"kabouzeid/nvim-lspinstall",
+		requires = { "neovim/nvim-lspconfig" },
+	})
+	-- autocompletion
+	use({
+		"hrsh7th/nvim-cmp",
+		requires = { "neovim/nvim-lspconfig" },
+		config = function()
+			require("thomasschuiki.plugins.cmp").init()
+		end,
+	})
+	use({
+		"hrsh7th/cmp-nvim-lsp", -- LSP source for nvim-cmp
+		requires = { "hrsh7th/nvim-cmp" },
+	})
+	use({
+		"saadparwaiz1/cmp_luasnip", -- Snippets source for nvim-cmp
+		requires = { "hrsh7th/nvim-cmp" },
+	})
+	use({
+		"L3MON4D3/LuaSnip", -- Snippets plugin
+		requires = { "hrsh7th/nvim-cmp" },
+	})
+  -- Treesitter
+	use({
+		"nvim-treesitter/nvim-treesitter",
+		requires = { "neovim/nvim-lspconfig" },
+		run = ":TSUpdate",
+		config = function()
+			require("thomasschuiki.plugins.treesitter").init()
+		end,
+	})
 
-    -- Telescope --
---    use 'nvim-lua/plenary.nvim'
---    use 'nvim-lua/popup.nvim'
-    use {
-        'nvim-telescope/telescope.nvim',
-        requires = {
-            'nvim-lua/plenary.nvim',
-            'nvim-lua/popup.nvim'
-        },
-        config = function () 
-          require'thomasschuiki.plugins.telescope'.init()
-        end
+	-- Telescope --
+	--    use 'nvim-lua/plenary.nvim'
+	--    use 'nvim-lua/popup.nvim'
+	use({
+		"nvim-telescope/telescope.nvim",
+		requires = {
+			"nvim-lua/plenary.nvim",
+			"nvim-lua/popup.nvim",
+		},
+		config = function()
+			require("thomasschuiki.plugins.telescope").init()
+		end,
+	})
+	-- Autoformatting
+	use({ "sbdchd/neoformat" })
 
-    }
-    -- Autoformatting
-    use { 'sbdchd/neoformat' }
-
--- Utilities
-    use {
-    'hoob3rt/lualine.nvim',
-    config = function ()
-      require'thomasschuiki.plugins.lualine'.init()
-    end
-  }
-    -- Themes --
-    use { 'gruvbox-community/gruvbox',
-        config = function () 
-          require'thomasschuiki.plugins.gruvbox'.init()
-        end
-}
+	-- Utilities
+	use({
+		"hoob3rt/lualine.nvim",
+		config = function()
+			require("thomasschuiki.plugins.lualine").init()
+		end,
+	})
+	-- Themes --
+	use({
+		"gruvbox-community/gruvbox",
+		config = function()
+			require("thomasschuiki.plugins.gruvbox").init()
+		end,
+	})
 end
 
 local function init()
-  packer_verify()
-  packer_startup()
+	packer_verify()
+	packer_startup()
 end
 
 return {
-  init = init
+	init = init,
 }
