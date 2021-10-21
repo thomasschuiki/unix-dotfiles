@@ -52,39 +52,40 @@ local function on_attach(client, bufnr)
 			false
 		)
 	end
-	local function make_config()
-		local capabilities = vim.lsp.protocol.make_client_capabilities()
+end
 
-    -- Add additional capabilities supported by nvim-cmp
-    capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+local function make_config()
+	local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-		capabilities.textDocument.completion.completionItem.snippetSupport = true
-		capabilities.textDocument.completion.completionItem.resolveSupport = {
-			properties = {
-				"documentation",
-				"detail",
-				"additionalTextEdits",
+	-- Add additional capabilities supported by nvim-cmp
+	capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+
+	capabilities.textDocument.completion.completionItem.snippetSupport = true
+	capabilities.textDocument.completion.completionItem.resolveSupport = {
+		properties = {
+			"documentation",
+			"detail",
+			"additionalTextEdits",
+		},
+	}
+
+	-- Code actions
+	capabilities.textDocument.codeAction = {
+		dynamicRegistration = true,
+		codeActionLiteralSupport = {
+			codeActionKind = {
+				valueSet = (function()
+					local res = vim.tbl_values(vim.lsp.protocol.CodeActionKind)
+					table.sort(res)
+					return res
+				end)(),
 			},
-		}
-
-		-- Code actions
-		capabilities.textDocument.codeAction = {
-			dynamicRegistration = true,
-			codeActionLiteralSupport = {
-				codeActionKind = {
-					valueSet = (function()
-						local res = vim.tbl_values(vim.lsp.protocol.CodeActionKind)
-						table.sort(res)
-						return res
-					end)(),
-				},
-			},
-		}
-		return {
-			capabilities = capabilities,
-			on_attach = on_attach,
-		}
-	end
+		},
+	}
+	return {
+		capabilities = capabilities,
+		on_attach = on_attach,
+	}
 end
 
 local function setup_diagnostics()
@@ -127,22 +128,14 @@ local function setup_diagnostics()
 end
 
 local function init()
-	local config = make_config()
 	local servers = { "gopls", "yamlls", "bashls" }
 	local nvim_lsp = require("lspconfig")
 	-- LSPs
-	for _, lsp in ipairs(servers) do
-		nvim_lsp[lsp].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-			-- init_options = {
-			--     onlyAnalyzeProjectsWithOpenFiles = true,
-			--     suggestFromUnimportedLibraries = false,
-			--     closingLabels = true,
-			-- };
-		})
+	for _, lsp in pairs(servers) do
+		local config = make_config()
+		nvim_lsp[lsp].setup(config)
 	end
-  setup_diagnostics()
+	setup_diagnostics()
 end
 
 return {

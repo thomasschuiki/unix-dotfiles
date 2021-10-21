@@ -26,8 +26,11 @@ local function packer_startup()
 	-- Language Support --
 	use("neovim/nvim-lspconfig")
 	use({
-		"kabouzeid/nvim-lspinstall",
+		"williamboman/nvim-lsp-installer",
 		requires = { "neovim/nvim-lspconfig" },
+		config = function()
+			require("thomasschuiki.plugins.lspconfig").init()
+		end,
 	})
 	-- autocompletion
 	use({
@@ -49,7 +52,7 @@ local function packer_startup()
 		"L3MON4D3/LuaSnip", -- Snippets plugin
 		requires = { "hrsh7th/nvim-cmp" },
 	})
-  -- Treesitter
+	-- Treesitter
 	use({
 		"nvim-treesitter/nvim-treesitter",
 		requires = { "neovim/nvim-lspconfig" },
