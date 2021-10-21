@@ -55,6 +55,9 @@ local function on_attach(client, bufnr)
 	local function make_config()
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 
+    -- Add additional capabilities supported by nvim-cmp
+    capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
 		capabilities.textDocument.completion.completionItem.snippetSupport = true
 		capabilities.textDocument.completion.completionItem.resolveSupport = {
 			properties = {

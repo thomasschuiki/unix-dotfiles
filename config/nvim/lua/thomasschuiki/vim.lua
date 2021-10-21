@@ -19,7 +19,8 @@ local function set_vim_o()
     softtabstop = 2,
     showmode = false,
     termguicolors = true,
-    signcolumn = 'yes'
+    signcolumn = 'yes',
+    completeopt = 'menuone,noselect'
   }
 
   -- Generic vim.o
