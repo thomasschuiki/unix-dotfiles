@@ -86,10 +86,16 @@ local function packer_startup()
 		end,
 	})
 	-- Themes --
+--	use({
+--		"gruvbox-community/gruvbox",
+--		config = function()
+--			require("thomasschuiki.plugins.gruvbox").init()
+--		end,
+--	})
 	use({
-		"gruvbox-community/gruvbox",
+		"sainnhe/sonokai",
 		config = function()
-			require("thomasschuiki.plugins.gruvbox").init()
+			require("thomasschuiki.plugins.sonokai").init()
 		end,
 	})
 end
