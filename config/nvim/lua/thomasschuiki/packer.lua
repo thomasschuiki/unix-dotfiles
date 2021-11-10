@@ -75,8 +75,6 @@ local function packer_startup()
 			require("thomasschuiki.plugins.telescope").init()
 		end,
 	})
-	-- Autoformatting
-	use({ "sbdchd/neoformat" })
 
 	-- Utilities
 	use({
