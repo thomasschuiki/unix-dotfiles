@@ -254,3 +254,4 @@ client.urgent           $red 		    $red 		    $white 		$red 		  $red
 
 
 #exec_always feh --bg-scale $HOME/Pictures/wallpaper.jpg
+exec --no-startup-id nitrogen --restore
