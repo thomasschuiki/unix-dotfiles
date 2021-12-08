@@ -82,6 +82,17 @@ local function make_config()
 			},
 		},
 	}
+  -- Settings
+  settings = {
+    pylsp = {
+      plugins = {
+        black = {
+          enabled = true,
+        },
+      },
+    },
+  }
+
 	return {
 		capabilities = capabilities,
 		on_attach = on_attach,
