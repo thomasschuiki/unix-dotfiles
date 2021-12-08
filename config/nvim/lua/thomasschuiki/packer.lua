@@ -83,6 +83,13 @@ local function packer_startup()
 			require("thomasschuiki.plugins.lualine").init()
 		end,
 	})
+
+	use({
+		"romgrk/barbar.nvim",
+		config = function()
+			require("thomasschuiki.plugins.barbar").init()
+		end,
+	})
 	-- Themes --
 --	use({
 --		"gruvbox-community/gruvbox",
