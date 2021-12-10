@@ -41,6 +41,12 @@ zoxide init fish | source
 # remove fish greeting
 set -U fish_greeting
 
+# Pure Prompt
+# https://github.com/pure-fish/pure
+_pure_set_default pure_show_system_time true
+_pure_set_default pure_color_system_time pure_color_mute --reverse
+_pure_set_default pure_show_prefix_root_prompt true
+
 ###############################################
 # Abbrevations
 ###############################################

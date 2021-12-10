@@ -1,31 +1,12 @@
-function fish_prompt --description 'Write out the prompt'
-    set -l last_pipestatus $pipestatus
-    set -lx __fish_last_status $status # Export for __fish_print_pipestatus.
-    set -l normal (set_color normal)
-    set -q fish_color_status
-    or set -g fish_color_status --background=red white
+# a called to `_pure_prompt_new_line` is triggered by an event
+function fish_prompt
+    set --local exit_code $status  # save previous exit code
 
-    # Color the prompt differently when we're root
-    set -l color_cwd $fish_color_cwd
-    set -l suffix ''
-    if functions -q fish_is_root_user; and fish_is_root_user
-        if set -q fish_color_cwd_root
-            set color_cwd $fish_color_cwd_root
-        end
-        set suffix '#'
-    end
+    echo -e -n (_pure_prompt_beginning)  # init prompt context (clear current line, etc.)
+    _pure_print_prompt_rows # manage default vs. compact prompt
+    _pure_place_iterm2_prompt_mark # place iTerm shell integration mark
+    echo -e -n (_pure_prompt $exit_code)  # print prompt
+    echo -e (_pure_prompt_ending)  # reset colors and end prompt
 
-    # Write pipestatus
-    # If the status was carried over (e.g. after `set`), don't bold it.
-    set -l bold_flag --bold
-    set -q __fish_prompt_status_generation; or set -g __fish_prompt_status_generation $status_generation
-    if test $__fish_prompt_status_generation = $status_generation
-        set bold_flag
-    end
-    set __fish_prompt_status_generation $status_generation
-    set -l status_color (set_color $fish_color_status)
-    set -l statusb_color (set_color $bold_flag $fish_color_status)
-    set -l prompt_status (__fish_print_pipestatus "[" "]" "|" "$status_color" "$statusb_color" $last_pipestatus)
-
-    echo -n -s (prompt_login)' ' (set_color $color_cwd) (prompt_pwd) $normal (fish_vcs_prompt) $normal " "$prompt_status $suffix " "
+    set _pure_fresh_session false
 end
