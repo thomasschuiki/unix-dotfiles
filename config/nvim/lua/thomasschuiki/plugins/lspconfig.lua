@@ -99,6 +99,37 @@ local function make_config()
 	}
 end
 
+local function make_tsconfig()
+  local function ts_on_attach(client, bufnr)
+    local function buf_set_keymap(...)
+      vim.api.nvim_buf_set_keymap(bufnr, ...)
+    end
+    client.resolved_capabilities.document_formatting = false
+    client.resolved_capabilities.document_range_formatting = false
+
+    local ts_utils = require("nvim-lsp-ts-utils")
+    ts_utils.setup({
+      eslint_bin = "eslint_d",
+      eslint_enable_diagnostics = true,
+      eslint_enable_code_actions = true,
+      enable_formatting = true,
+      formatter = "prettier",
+    })
+    ts_utils.setup_client(client)
+
+    local opts = { noremap = true, silent = true }
+    buf_set_keymap("n", "gs", ":TSLspOrganize<CR>", opts)
+    buf_set_keymap("n", "gi", ":TSLspRenameFile<CR>", opts)
+    buf_set_keymap("n", "go", ":TSLspImportAll<CR>", opts)
+
+    on_attach(client, bufnr)
+  end
+
+  return {
+    on_attach = ts_on_attach,
+  }
+end
+
 local function setup_diagnostics()
 	-- LSP Enable diagnostics
 	vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -139,12 +170,15 @@ local function setup_diagnostics()
 end
 
 local function init()
-	local servers = { "gopls", "yamlls", "bashls", "pylsp" }
+	local servers = { "gopls", "yamlls", "bashls", "pylsp", "tsserver", "vuels"}
 	local nvim_lsp = require("lspconfig")
 	-- LSPs
 	for _, lsp in pairs(servers) do
-		local config = make_config()
-		nvim_lsp[lsp].setup(config)
+    local config = make_config()
+    if lsp == "tsserver" then
+      config = make_tsconfig()
+    end
+    nvim_lsp[lsp].setup(config)
 	end
 	setup_diagnostics()
 end

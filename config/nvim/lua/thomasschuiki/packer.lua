@@ -32,6 +32,10 @@ local function packer_startup()
 			require("thomasschuiki.plugins.lspconfig").init()
 		end,
 	})
+	use({
+		"jose-elias-alvarez/nvim-lsp-ts-utils",
+		requires = { "neovim/nvim-lspconfig" },
+	})
 	-- autocompletion
 	use({
 		"hrsh7th/nvim-cmp",
