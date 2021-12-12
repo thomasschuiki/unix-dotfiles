@@ -25,7 +25,7 @@ set -x PATH $PATH $HOME/.local/bin
 # Set defaults
 ###############################################
 set -Ux EDITOR nvim
-set -Ux TERMINAL alacritty
+set -Ux TERMINAL kitty
 set -Ux BROWSER firefox
 
 ###############################################

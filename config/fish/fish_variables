@@ -2,7 +2,7 @@
 # VERSION: 3.0
 SETUVAR --export BROWSER:firefox
 SETUVAR --export EDITOR:nvim
-SETUVAR --export TERMINAL:alacritty
+SETUVAR --export TERMINAL:kitty
 SETUVAR __fish_initialized:3100
 SETUVAR _fish_abbr_cclip:xclip\x20\x2dse\x20c
 SETUVAR _fish_abbr_chgrp:chgrp\x20\x2d\x2dpreserve\x2droot
