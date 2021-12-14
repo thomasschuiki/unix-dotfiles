@@ -46,6 +46,7 @@ set -U fish_greeting
 _pure_set_default pure_show_system_time true
 _pure_set_default pure_color_system_time pure_color_mute --reverse
 _pure_set_default pure_show_prefix_root_prompt true
+_pure_set_default pure_fresh_session true
 
 ###############################################
 # Abbrevations

@@ -3,6 +3,7 @@
 SETUVAR --export BROWSER:firefox
 SETUVAR --export EDITOR:nvim
 SETUVAR --export TERMINAL:kitty
+SETUVAR VIRTUAL_ENV_DISABLE_PROMPT:true
 SETUVAR __fish_initialized:3100
 SETUVAR _fish_abbr_cclip:xclip\x20\x2dse\x20c
 SETUVAR _fish_abbr_chgrp:chgrp\x20\x2d\x2dpreserve\x2droot
@@ -83,6 +84,7 @@ SETUVAR pure_color_virtualenv:pure_color_mute
 SETUVAR pure_color_warning:yellow
 SETUVAR pure_enable_git:true
 SETUVAR pure_enable_single_line_prompt:false
+SETUVAR pure_fresh_session:true
 SETUVAR pure_reverse_prompt_symbol_in_vimode:true
 SETUVAR pure_separate_prompt_on_error:false
 SETUVAR pure_show_jobs:false

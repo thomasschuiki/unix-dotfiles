@@ -8,5 +8,5 @@ function fish_prompt
     echo -e -n (_pure_prompt $exit_code)  # print prompt
     echo -e (_pure_prompt_ending)  # reset colors and end prompt
 
-    set _pure_fresh_session false
+    set _pure_fresh_session true
 end
