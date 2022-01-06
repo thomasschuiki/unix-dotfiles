@@ -94,6 +94,16 @@ local function packer_startup()
 			require("thomasschuiki.plugins.barbar").init()
 		end,
 	})
+  -- GitSigns
+  use({
+    'lewis6991/gitsigns.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim'
+    },
+    config = function()
+      require('gitsigns').setup()
+    end
+  })
   -- Trim Whitespace
   use({
     'cappyzawa/trim.nvim',
