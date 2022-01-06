@@ -22,6 +22,8 @@ local function packer_startup()
 
 	-- Packer can manage itself
 	use("wbthomason/packer.nvim")
+	use("nvim-lua/plenary.nvim")
+	use("nvim-lua/popup.nvim")
 
 	-- Language Support --
 	use("neovim/nvim-lspconfig")
@@ -67,8 +69,6 @@ local function packer_startup()
 	})
 
 	-- Telescope --
-	--    use 'nvim-lua/plenary.nvim'
-	--    use 'nvim-lua/popup.nvim'
 	use({
 		"nvim-telescope/telescope.nvim",
 		requires = {
