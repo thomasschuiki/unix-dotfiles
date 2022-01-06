@@ -94,6 +94,13 @@ local function packer_startup()
 			require("thomasschuiki.plugins.barbar").init()
 		end,
 	})
+  -- Trim Whitespace
+  use({
+    'cappyzawa/trim.nvim',
+    config = function()
+      require("thomasschuiki.plugins.trim").init()
+    end
+  })
 	-- Themes --
 --	use({
 --		"gruvbox-community/gruvbox",
