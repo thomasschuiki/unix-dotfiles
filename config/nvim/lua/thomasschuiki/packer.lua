@@ -38,6 +38,7 @@ local function packer_startup()
 		"jose-elias-alvarez/nvim-lsp-ts-utils",
 		requires = { "neovim/nvim-lspconfig" },
 	})
+
 	-- autocompletion
 	use({
 		"hrsh7th/nvim-cmp",
@@ -58,7 +59,8 @@ local function packer_startup()
 		"L3MON4D3/LuaSnip", -- Snippets plugin
 		requires = { "hrsh7th/nvim-cmp" },
 	})
-	-- Treesitter
+
+	-- Treesitter --
 	use({
 		"nvim-treesitter/nvim-treesitter",
 		requires = { "neovim/nvim-lspconfig" },
@@ -80,14 +82,15 @@ local function packer_startup()
 		end,
 	})
 
-	-- Utilities
+  -- Utilities --
+  -- Lualine
 	use({
 		"hoob3rt/lualine.nvim",
 		config = function()
 			require("thomasschuiki.plugins.lualine").init()
 		end,
 	})
-
+  -- BarBar (buffer bar)
 	use({
 		"romgrk/barbar.nvim",
 		config = function()
