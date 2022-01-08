@@ -142,31 +142,11 @@ local function setup_diagnostics()
 		update_in_insert = false,
 	})
 
-	vim.fn.sign_define("LspDiagnosticsSignError", { text = "", texthl = "LspDiagnosticsDefaultError" })
-	vim.fn.sign_define("LspDiagnosticsSignWarning", { text = "", texthl = "LspDiagnosticsDefaultWarning" })
-	vim.fn.sign_define("LspDiagnosticsSignInformation", { text = "", texthl = "LspDiagnosticsDefaultInformation" })
-	vim.fn.sign_define("LspDiagnosticsSignHint", { text = "", texthl = "LspDiagnosticsDefaultHint" })
+	vim.fn.sign_define("DiagnosticsSignError", { text = "", texthl = "DiagnosticsDefaultError" })
+	vim.fn.sign_define("DiagnosticsSignWarn", { text = "", texthl = "DiagnosticsDefaultWarn" })
+	vim.fn.sign_define("DiagnosticsSignInfo", { text = "", texthl = "DiagnosticsDefaultInfo" })
+	vim.fn.sign_define("DiagnosticsSignHint", { text = "", texthl = "DiagnosticsDefaultHint" })
 
-	-- Send diagnostics to quickfix list
-	do
-		local method = "textDocument/publishDiagnostics"
-		local default_handler = vim.lsp.handlers[method]
-		vim.lsp.handlers[method] = function(err, method, result, client_id, bufnr, config)
-			default_handler(err, method, result, client_id, bufnr, config)
-			local diagnostics = vim.lsp.diagnostic.get_all()
-			local qflist = {}
-			for bufnr, diagnostic in pairs(diagnostics) do
-				for _, d in ipairs(diagnostic) do
-					d.bufnr = bufnr
-					d.lnum = d.range.start.line + 1
-					d.col = d.range.start.character + 1
-					d.text = d.message
-					table.insert(qflist, d)
-				end
-			end
-			vim.lsp.util.set_qflist(qflist)
-		end
-	end
 end
 
 local function init()
