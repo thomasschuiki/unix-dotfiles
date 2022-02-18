@@ -17,9 +17,10 @@ require('nvim-treesitter.configs').setup {
     'lua',
     'python',
     'regex',
+    'svelte',
     'vue',
     'yaml',
-  }, 
+  },
 	highlight = {
     enable = true
   },

@@ -31,7 +31,7 @@ local function packer_startup()
 		"williamboman/nvim-lsp-installer",
 		requires = { "neovim/nvim-lspconfig" },
 		config = function()
-			require("thomasschuiki.plugins.lspconfig").init()
+			require("user.plugins.lspconfig").init()
 		end,
 	})
 	use({
@@ -44,7 +44,7 @@ local function packer_startup()
 		"hrsh7th/nvim-cmp",
 		requires = { "neovim/nvim-lspconfig" },
 		config = function()
-			require("thomasschuiki.plugins.cmp").init()
+			require("user.plugins.cmp").init()
 		end,
 	})
 	use({
@@ -66,7 +66,7 @@ local function packer_startup()
 		requires = { "neovim/nvim-lspconfig" },
 		run = ":TSUpdate",
 		config = function()
-			require("thomasschuiki.plugins.treesitter").init()
+			require("user.plugins.treesitter").init()
 		end,
 	})
 
@@ -78,7 +78,7 @@ local function packer_startup()
 			"nvim-lua/popup.nvim",
 		},
 		config = function()
-			require("thomasschuiki.plugins.telescope").init()
+			require("user.plugins.telescope").init()
 		end,
 	})
 
@@ -87,14 +87,14 @@ local function packer_startup()
 	use({
 		"hoob3rt/lualine.nvim",
 		config = function()
-			require("thomasschuiki.plugins.lualine").init()
+			require("user.plugins.lualine").init()
 		end,
 	})
   -- BarBar (buffer bar)
 	use({
 		"romgrk/barbar.nvim",
 		config = function()
-			require("thomasschuiki.plugins.barbar").init()
+			require("user.plugins.barbar").init()
 		end,
 	})
   -- GitSigns
@@ -111,7 +111,7 @@ local function packer_startup()
   use({
     'cappyzawa/trim.nvim',
     config = function()
-      require("thomasschuiki.plugins.trim").init()
+      require("user.plugins.trim").init()
     end
   })
 	-- Themes --
@@ -124,7 +124,7 @@ local function packer_startup()
 	use({
 		"sainnhe/sonokai",
 		config = function()
-			require("thomasschuiki.plugins.sonokai").init()
+			require("user.plugins.sonokai").init()
 		end,
 	})
 end

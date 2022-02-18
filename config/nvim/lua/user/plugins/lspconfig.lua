@@ -91,6 +91,12 @@ local function make_config()
         },
       },
     },
+    gopls = {
+      analyses = {
+        unusedparams = true,
+      },
+      statichcheck = true,
+    },
   }
 
 	return {
@@ -150,7 +156,7 @@ local function setup_diagnostics()
 end
 
 local function init()
-	local servers = { "gopls", "yamlls", "bashls", "pylsp", "tsserver", "vuels", "ansiblels"}
+	local servers = { "gopls", "yamlls", "bashls", "pylsp", "tsserver", "vuels", "ansiblels", "svelte"}
 	local nvim_lsp = require("lspconfig")
 	-- LSPs
 	for _, lsp in pairs(servers) do

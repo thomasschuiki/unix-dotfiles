@@ -22,6 +22,9 @@ local function set_vim_o()
     hidden = true,
     scrolloff = 3,
     softtabstop = 2,
+    tabstop = 2,
+    shiftwidth = 2,
+    smartindent = false,
     showmode = false,
     termguicolors = true,
     signcolumn = 'yes',
@@ -40,10 +43,8 @@ local function set_vim_o()
   -- Not yet in vim.o
   vim.cmd('set encoding=utf8')
   vim.cmd('set nowritebackup')
-  vim.cmd('set shiftwidth=2')
   vim.cmd('set secure')
   vim.cmd('set splitright')
-  vim.cmd('set tabstop=2')
   vim.cmd('set updatetime=300')
 end
 
