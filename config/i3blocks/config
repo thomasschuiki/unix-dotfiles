@@ -77,6 +77,18 @@ instance=/home
 interval=60
 color=#928374
 
+# d plate
+[disk]
+instance=/mnt/d
+interval=60
+color=#928374
+
+# e plate
+[disk]
+instance=/mnt/e
+interval=60
+color=#928374
+
 [separator]
 
 [volume]
@@ -98,7 +110,6 @@ color=#928374
 [clock]
 interval=1
 color=#928374
-
 
 #lightred #fb4934
 #red #cc241d

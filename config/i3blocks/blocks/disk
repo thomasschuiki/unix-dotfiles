@@ -3,7 +3,7 @@
 # Status bar module for disk space
 # $1 should be drive mountpoint, otherwise assumed /.
 icon="💽"
-location=${1:-/}
+location=${BLOCK_INSTANCE:-/}
 
 [ -d "$location" ] || exit
 
@@ -33,4 +33,4 @@ if [ "$percentused" -ge "$highlimit" ]; then
   color=$highcolor
 fi
 #printf "%s: %s\n" "$icon" "$(df -h "$location" | awk ' /[0-9]/ {print $3 "/" $2}')"
-printf "%s %s\n" "$icon" "<span foreground=\"$color\">$text</span>" 
+printf "%s %s\n" "$icon" "<span foreground=\"$color\">$text</span>"
