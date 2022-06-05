@@ -15,29 +15,29 @@ local function set_vim_g()
 end
 
 local function set_vim_o()
-  local settings = {
-    backup = false,
-    errorbells = false,
-    expandtab = true,
-    hidden = true,
-    scrolloff = 3,
-    softtabstop = 2,
-    tabstop = 2,
-    shiftwidth = 2,
-    smartindent = false,
-    showmode = false,
+  local options = {
+    backup        = false,
+    errorbells    = false,
+    expandtab     = true,
+    hidden        = true,
+    scrolloff     = 3,
+    softtabstop   = 2,
+    tabstop       = 2,
+    shiftwidth    = 2,
+    smartindent   = false,
+    showmode      = false,
     termguicolors = true,
-    signcolumn = 'yes',
-    completeopt = 'menuone,noselect'
+    signcolumn    = 'yes',
+    completeopt   = 'menuone,noselect',
+    clipboard     = 'unnamedplus'
   }
 
   -- Generic vim.o
-  for k, v in pairs(settings) do
+  for k, v in pairs(options) do
     vim.o[k] = v
   end
 
   -- Custom vim.o
-  vim.o.clipboard = 'unnamedplus'
   vim.o.shortmess = vim.o.shortmess .. 'c'
 
   -- Not yet in vim.o
@@ -57,8 +57,17 @@ end
 local function set_keymaps()
   local map = vim.api.nvim_set_keymap
 
-  local options = { noremap = false }
+  local options = { noremap = false, silent = true }
 
+  -- Window navigation
+  map('n', '<C-h>', '<C-w>h', options)
+  map('n', '<C-j>', '<C-w>j', options)
+  map('n', '<C-k>', '<C-w>k', options)
+  map('n', '<C-l>', '<C-w>l', options)
+
+  map('n', '<leader>le', ':Lex 30<cr>', options)
+
+  -- switch lines easily
   map('n', '<leader>h', '<CMD>wincmd h<CR>', options)
   map('n', '<leader>j', '<CMD>wincmd j<CR>', options)
   map('n', '<leader>k', '<CMD>wincmd k<CR>', options)
@@ -70,15 +79,22 @@ local function set_keymaps()
   map('n', '<leader>a', '<CMD>cclose<CR>', options)
 
   -- move selection around
-  map('v', 'J', "<CMD>m '>+1<CR>gv=gv", options)
-  map('v', 'K', "<CMD>m '<-2<CR>gv=gv", options)
+  map('v', '<A-j>', "<CMD>m '>+1<CR>gv=gv", options)
+  map('v', '<A-k>', "<CMD>m '<-2<CR>gv=gv", options)
   map('i', '<C-j>', "<ESC><CMD>m .+1<CR>==", options)
   map('i', '<C-k>', "<ESC><CMD>m .-2<CR>==", options)
   map('n', '<leader>j', "<CMD>m .+1<CR>==", options)
   map('n', '<leader>k', "<CMD>m .-2<CR>==", options)
 
+  -- indent lines
+  map('v', '<', '<gv', options)
+  map('v', '>', '>gv', options)
+
   -- add double quotes around a selection
   map('v', '"', '<ESC>`a"<ESC>`<i"<ESC>', options)
+
+  -- hold on to yanked text
+  map('v', 'p', '"_dP', options)
 
   -- keep cursor centered while searching
   map('n', 'n', 'nzzzv', options)
