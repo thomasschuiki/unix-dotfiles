@@ -1,4 +1,4 @@
-local function on_attach(client, bufnr)
+local function default_on_attach(client, bufnr)
 	-- require('completion').on_attach()
 
 	local function buf_set_keymap(...)
@@ -54,7 +54,26 @@ local function on_attach(client, bufnr)
 	end
 end
 
-local function make_config()
+local function setup_diagnostics()
+	-- LSP Enable diagnostics
+	vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+		virtual_text = {
+			prefix = "»",
+			spacing = 4,
+		},
+		underline = true,
+		signs = true,
+		update_in_insert = false,
+	})
+
+	vim.fn.sign_define("DiagnosticsSignError", { text = "", texthl = "DiagnosticsDefaultError" })
+	vim.fn.sign_define("DiagnosticsSignWarn", { text = "", texthl = "DiagnosticsDefaultWarn" })
+	vim.fn.sign_define("DiagnosticsSignInfo", { text = "", texthl = "DiagnosticsDefaultInfo" })
+	vim.fn.sign_define("DiagnosticsSignHint", { text = "", texthl = "DiagnosticsDefaultHint" })
+
+end
+
+local function default_capabilities()
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 	-- Add additional capabilities supported by nvim-cmp
@@ -82,7 +101,44 @@ local function make_config()
 			},
 		},
 	}
-  -- Settings
+
+  return capabilities
+end
+
+local function default_config()
+  return {
+    capabilities = default_capabilities(),
+    on_attach = default_on_attach
+  }
+end
+
+local function setup_server(server, config_overrides)
+	local lspconfig = require("lspconfig")
+
+  config_overrides = config_overrides or {}
+  local config = default_config()
+
+  for k, v in pairs(config_overrides) do
+    config[k] = v
+  end
+
+  lspconfig[server].setup(config)
+end
+
+local servers = {}
+servers["gopls"] = {
+  settings = {
+    gopls = {
+      analyses = {
+        unusedparams = true,
+      },
+      staticcheck = true,
+    },
+  }
+}
+servers["yamlls"] = {}
+servers["bashls"] = {}
+servers["pylsp"] = {
   settings = {
     pylsp = {
       plugins = {
@@ -90,23 +146,11 @@ local function make_config()
           enabled = true,
         },
       },
-    },
-    gopls = {
-      analyses = {
-        unusedparams = true,
-      },
-      statichcheck = true,
-    },
+    }
   }
-
-	return {
-		capabilities = capabilities,
-		on_attach = on_attach,
-	}
-end
-
-local function make_tsconfig()
-  local function ts_on_attach(client, bufnr)
+}
+servers["tsserver"] = {
+  on_attach = function(client, bufnr)
     local function buf_set_keymap(...)
       vim.api.nvim_buf_set_keymap(bufnr, ...)
     end
@@ -128,43 +172,40 @@ local function make_tsconfig()
     buf_set_keymap("n", "gi", ":TSLspRenameFile<CR>", opts)
     buf_set_keymap("n", "go", ":TSLspImportAll<CR>", opts)
 
-    on_attach(client, bufnr)
+    default_on_attach(client, bufnr)
   end
-
-  return {
-    on_attach = ts_on_attach,
-  }
-end
-
-local function setup_diagnostics()
-	-- LSP Enable diagnostics
-	vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-		virtual_text = {
-			prefix = "»",
-			spacing = 4,
-		},
-		underline = true,
-		signs = true,
-		update_in_insert = false,
-	})
-
-	vim.fn.sign_define("DiagnosticsSignError", { text = "", texthl = "DiagnosticsDefaultError" })
-	vim.fn.sign_define("DiagnosticsSignWarn", { text = "", texthl = "DiagnosticsDefaultWarn" })
-	vim.fn.sign_define("DiagnosticsSignInfo", { text = "", texthl = "DiagnosticsDefaultInfo" })
-	vim.fn.sign_define("DiagnosticsSignHint", { text = "", texthl = "DiagnosticsDefaultHint" })
-
-end
+}
+servers["vuels"] = {}
+servers["ansiblels"] = {}
+servers["svelte"] = {}
+servers["sumneko_lua"] = {
+  settings = {
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = {'vim'},
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+}
 
 local function init()
-	local servers = { "gopls", "yamlls", "bashls", "pylsp", "tsserver", "vuels", "ansiblels", "svelte"}
 	local nvim_lsp = require("lspconfig")
 	-- LSPs
-	for _, lsp in pairs(servers) do
-    local config = make_config()
-    if lsp == "tsserver" then
-      config = make_tsconfig()
-    end
-    nvim_lsp[lsp].setup(config)
+	for name, config in pairs(servers) do
+    setup_server(name, config)
 	end
 	setup_diagnostics()
 end
