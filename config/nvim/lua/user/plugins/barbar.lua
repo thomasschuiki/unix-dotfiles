@@ -37,9 +37,7 @@ local function init()
   -- Other:
   -- :BarbarEnable - enables barbar (enabled by default)
   -- :BarbarDisable - very bad command, should never be used
-  vim.g.bufferline = {
-    icons = false,
-  }
+  require'bufferline'.setup{icons = false}
 end
 
 return {
