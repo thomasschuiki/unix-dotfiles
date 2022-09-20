@@ -1,1 +1,1 @@
-require 'user'.init()
+require 'user'

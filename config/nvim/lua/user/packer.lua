@@ -30,9 +30,6 @@ local function packer_startup()
 	use({
 		"williamboman/nvim-lsp-installer",
 		requires = { "neovim/nvim-lspconfig" },
-		config = function()
-			require("user.plugins.lspconfig").init()
-		end,
 	})
 	use({
 		"jose-elias-alvarez/nvim-lsp-ts-utils",
@@ -43,9 +40,6 @@ local function packer_startup()
 	use({
 		"hrsh7th/nvim-cmp",
 		requires = { "neovim/nvim-lspconfig" },
-		config = function()
-			require("user.plugins.cmp").init()
-		end,
 	})
 	use({
 		"hrsh7th/cmp-nvim-lsp", -- LSP source for nvim-cmp
@@ -65,9 +59,6 @@ local function packer_startup()
 		"nvim-treesitter/nvim-treesitter",
 		requires = { "neovim/nvim-lspconfig" },
 		run = ":TSUpdate",
-		config = function()
-			require("user.plugins.treesitter").init()
-		end,
 	})
 
 	-- Telescope --
@@ -92,11 +83,11 @@ local function packer_startup()
 	})
   -- BarBar (buffer bar)
 	use({
-		"romgrk/barbar.nvim",
-		config = function()
-			require("user.plugins.barbar").init()
-		end,
-	})
+    "romgrk/barbar.nvim",
+    requires = {
+      'kyazdani42/nvim-web-devicons'
+    }
+  })
   -- GitSigns
   use({
     'lewis6991/gitsigns.nvim',
@@ -108,32 +99,17 @@ local function packer_startup()
     end
   })
   -- Trim Whitespace
-  use({
-    'cappyzawa/trim.nvim',
-    config = function()
-      require("user.plugins.trim").init()
-    end
-  })
+  use({ 'echasnovski/mini.nvim', branch = 'stable'})
+	require("user.plugins.mini").init()
 	-- Themes --
---	use({
---		"gruvbox-community/gruvbox",
---		config = function()
---			require("thomasschuiki.plugins.gruvbox").init()
---		end,
---	})
-	use({
-		"sainnhe/sonokai",
-		config = function()
-			require("user.plugins.sonokai").init()
-		end,
-	})
+	use({"sainnhe/sonokai"})
+	use({"luisiacc/gruvbox-baby"})
+	use({"folke/tokyonight.nvim"})
+
+  -- Rust
+  -- use({"simrat39/rust-tools.nvim"})
 end
 
-local function init()
-	packer_verify()
-	packer_startup()
-end
+packer_verify()
+packer_startup()
 
-return {
-	init = init,
-}

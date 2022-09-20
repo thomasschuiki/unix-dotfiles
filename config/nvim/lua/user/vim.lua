@@ -1,17 +1,31 @@
-local function set_augroup()
-  vim.api.nvim_command("augroup WrapInMarkdown")
-  vim.api.nvim_command("autocmd!")
-  vim.api.nvim_command("autocmd FileType markdown setlocal wrap")
-  vim.api.nvim_command("augroup END")
+local function set_augroups()
+  local augroup = vim.api.nvim_create_augroup
+  local autocmd = vim.api.nvim_create_autocmd
 
-  vim.api.nvim_command("augroup highlight_yank")
-  vim.api.nvim_command("autocmd!")
-  vim.api.nvim_command("au TextYankPost * silent! lua vim.highlight.on_yank{higroup=\"IncSearch\", timeout=700}")
-  vim.api.nvim_command("augroup END")
+  autocmd('FileType markdown', {
+    group = augroup('WrapInMarkdown', { clear = true }),
+    command = 'setlocal wrap',
+  })
+
+  autocmd('TextYankPost', {
+    group = augroup('YankGroup', { clear = true }),
+    command = 'silent! lua vim.highlight.on_yank{higroup=\"IncSearch\", timeout=700}',
+  })
+
+  autocmd('BufWritePre', {
+    group = augroup('OnSave', { clear = true }),
+    callback = function()
+      MiniTrailspace.trim()
+    end,
+  })
 end
 
 local function set_vim_g()
   vim.g.mapleader = " "
+  -- netrw
+  vim.g.netrw_browse_split = 0
+  vim.g.netrw_banner = 0
+  vim.g.netrw_winsize = 25
 end
 
 local function set_vim_o()
@@ -45,7 +59,7 @@ local function set_vim_o()
   vim.cmd('set nowritebackup')
   vim.cmd('set secure')
   vim.cmd('set splitright')
-  vim.cmd('set updatetime=300')
+  vim.cmd('set updatetime=100')
 end
 
 local function set_vim_wo()
@@ -63,15 +77,15 @@ local function set_keymaps()
   map('n', '<C-h>', '<C-w>h', options)
   map('n', '<C-j>', '<C-w>j', options)
   map('n', '<C-k>', '<C-w>k', options)
-  map('n', '<C-l>', '<C-w>l', options)
+  --map('n', '<C-l>', '<C-w>l', options)
 
   map('n', '<leader>le', ':Lex 30<cr>', options)
 
   -- switch lines easily
-  map('n', '<leader>h', '<CMD>wincmd h<CR>', options)
+  --map('n', '<leader>h', '<CMD>wincmd h<CR>', options)
   map('n', '<leader>j', '<CMD>wincmd j<CR>', options)
   map('n', '<leader>k', '<CMD>wincmd k<CR>', options)
-  map('n', '<leader>l', '<CMD>wincmd l<CR>', options)
+  --map('n', '<leader>l', '<CMD>wincmd l<CR>', options)
 
   -- jump in checklist
   map('', '<C-n>', '<CMD>cnext<CR>', options)
@@ -94,23 +108,28 @@ local function set_keymaps()
   map('v', '"', '<ESC>`a"<ESC>`<i"<ESC>', options)
 
   -- hold on to yanked text
-  map('v', 'p', '"_dP', options)
+  --map('v', 'p', '"_dP', options)
 
   -- keep cursor centered while searching
   map('n', 'n', 'nzzzv', options)
   map('n', 'N', 'Nzzzv', options)
   map('n', 'J', 'mzJ`z', options)
 
+  -- Copy to clipboard
+  map('v', '<leader>y', '"+y', options)
+  map('n', '<leader>y', '"+y', options)
+  map('n', '<leader>Y', '"+yg_', options)
+  map('n', '<leader>yy', '"+yy', options)
+
+  -- Paste from clipboard
+  map('n', '<leader>p', '"+p', options)
+  map('n', '<leader>P', '"+P', options)
+  map('v', '<leader>p', '"+p', options)
+  map('v', '<leader>P', '"+P', options)
 end
 
-local function init()
-  set_augroup()
-  set_vim_g()
-  set_vim_o()
-  set_vim_wo()
-  set_keymaps()
-end
-
-return {
-  init = init
-}
+set_augroups()
+set_vim_g()
+set_vim_o()
+set_vim_wo()
+set_keymaps()

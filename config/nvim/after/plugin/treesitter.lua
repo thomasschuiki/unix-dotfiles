@@ -1,4 +1,3 @@
-local function init()
 require('nvim-treesitter.configs').setup {
 	ensure_installed = {
     'bash',
@@ -17,7 +16,10 @@ require('nvim-treesitter.configs').setup {
     'lua',
     'python',
     'regex',
+    'rust',
     'svelte',
+    'sql',
+    'toml',
     'vue',
     'yaml',
   },
@@ -37,9 +39,4 @@ require('nvim-treesitter.configs').setup {
     enable = true,
     disable = {"python"}
   }
-}
-end
-
-return {
-  init = init
 }
