@@ -1,3 +1,4 @@
+local color = "kanagawa"
 -- Gruvbox Theme settings
 
 -- Load colorscheme
@@ -13,4 +14,5 @@
 -- Tokyonight Theme settings
 
 -- Load colorscheme
-vim.cmd[[colorscheme tokyonight]]
+vim.cmd.colorscheme(color)
+

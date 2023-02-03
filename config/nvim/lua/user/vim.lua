@@ -30,20 +30,27 @@ end
 
 local function set_vim_o()
   local options = {
-    backup        = false,
-    errorbells    = false,
-    expandtab     = true,
-    hidden        = true,
-    scrolloff     = 3,
-    softtabstop   = 2,
-    tabstop       = 2,
-    shiftwidth    = 2,
-    smartindent   = false,
-    showmode      = false,
-    termguicolors = true,
-    signcolumn    = 'yes',
-    completeopt   = 'menuone,noselect',
-    clipboard     = 'unnamedplus'
+    backup         = false,
+    errorbells     = false,
+    expandtab      = true,
+    hidden         = true,
+    scrolloff      = 3,
+    softtabstop    = 2,
+    tabstop        = 2,
+    shiftwidth     = 2,
+    smartindent    = false,
+    showmode       = false,
+    termguicolors  = true,
+    signcolumn     = 'yes',
+    completeopt    = 'menuone,noselect',
+    clipboard      = 'unnamedplus',
+    swapfile       = false,
+    undodir        = os.getenv("HOME") .. ".local/share/nvim/undodir",
+    undofile       = true,
+    incsearch      = true,
+    number         = true,
+    relativenumber = true,
+    wrap           = false,
   }
 
   -- Generic vim.o
@@ -62,14 +69,8 @@ local function set_vim_o()
   vim.cmd('set updatetime=100')
 end
 
-local function set_vim_wo()
-  vim.wo.number = true
-  vim.wo.relativenumber = true
-  vim.wo.wrap = false
-end
-
 local function set_keymaps()
-  local map = vim.api.nvim_set_keymap
+  local map = vim.keymap.set
 
   local options = { noremap = false, silent = true }
 
@@ -131,5 +132,4 @@ end
 set_augroups()
 set_vim_g()
 set_vim_o()
-set_vim_wo()
 set_keymaps()
