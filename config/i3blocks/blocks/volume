@@ -26,6 +26,7 @@ fi
 # vol=$(echo "$volstat" | grep -o "\[[0-9]\+%\]" | sed "s/[^0-9]*//g;1q")
 case "$ACTIVESINK" in
 	"alsa_output.usb-Logitech_G533_Gaming_Headset-00.analog-stereo"* ) icon="🎧" ;;
+	"alsa_output.usb-046d_G435_Wireless_Gaming_Headset_V001008005.1-01.analog-stereo"* ) icon="🎧" ;;
 	"alsa_output.pci-0000_0b_00.4.analog-stereo"* ) icon="🔊" ;;
 esac
 

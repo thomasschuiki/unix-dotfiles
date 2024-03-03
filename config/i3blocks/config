@@ -99,7 +99,7 @@ max_width=🔊 100%
 color=#928374
 
 [volume]
-instance=alsa_output.usb-Logitech_G533_Gaming_Headset-00.analog-stereo
+instance=alsa_output.usb-046d_G435_Wireless_Gaming_Headset_V001008005.1-01.analog-stereo
 interval=once
 signal=10
 max_width=🎧 100%
