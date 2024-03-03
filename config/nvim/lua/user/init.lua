@@ -1,2 +1,2 @@
 require 'user.vim'
-require 'user.packer'
+require 'user.pluginmanager'

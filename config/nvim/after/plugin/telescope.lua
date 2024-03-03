@@ -9,12 +9,17 @@ require("telescope").setup({
   },
 })
 
-local options = { noremap = true }
+local opts = { noremap = true }
 local builtin = require("telescope.builtin")
 
 --- Keymaps
-vim.keymap.set("n", "<leader>fg", builtin.git_files, options)
-vim.keymap.set("n", "<leader>ff", builtin.find_files, options)
-vim.keymap.set("n", "<leader>fs", builtin.live_grep, options)
-vim.keymap.set("n", "<leader>fb", builtin.buffers, options)
-vim.keymap.set("n", "<leader>fh", builtin.help_tags, options)
+opts["desc"] = "search in git files"
+vim.keymap.set("n", "<leader>fg", builtin.live_grep, opts)
+opts["desc"] = "find in files"
+vim.keymap.set("n", "<leader>ff", builtin.find_files, opts)
+opts["desc"] = "live grep files"
+vim.keymap.set("n", "<leader>fs", builtin.live_grep, opts)
+opts["desc"] = "search buffers"
+vim.keymap.set("n", "<leader>fb", builtin.buffers, opts)
+opts["desc"] = "search help tags"
+vim.keymap.set("n", "<leader>fh", builtin.help_tags, opts)

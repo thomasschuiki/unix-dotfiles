@@ -27,34 +27,37 @@ local function packer_startup()
 
   use {
     'VonHeikemen/lsp-zero.nvim',
-    branch = 'v1.x',
+    branch = 'v2.x',
     requires = {
       -- LSP Support
-      {'neovim/nvim-lspconfig'},             -- Required
-      {'williamboman/mason.nvim'},           -- Optional
-      {'williamboman/mason-lspconfig.nvim'}, -- Optional
+      { 'neovim/nvim-lspconfig' },             -- Required
+      { 'williamboman/mason.nvim' },           -- Optional
+      { 'williamboman/mason-lspconfig.nvim' }, -- Optional
 
       -- Autocompletion
-      {'hrsh7th/nvim-cmp'},         -- Required
-      {'hrsh7th/cmp-nvim-lsp'},     -- Required
-      {'hrsh7th/cmp-buffer'},       -- Optional
-      {'hrsh7th/cmp-path'},         -- Optional
-      {'saadparwaiz1/cmp_luasnip'}, -- Optional
-      {'hrsh7th/cmp-nvim-lua'},     -- Optional
+      { 'hrsh7th/nvim-cmp' },         -- Required
+      { 'hrsh7th/cmp-nvim-lsp' },     -- Required
+      { 'hrsh7th/cmp-buffer' },       -- Optional
+      { 'hrsh7th/cmp-path' },         -- Optional
+      { 'hrsh7th/cmp-nvim-lua' },     -- Optional
 
       -- Snippets
-      {'L3MON4D3/LuaSnip'},             -- Required
-      {'rafamadriz/friendly-snippets'}, -- Optional
+      { "L3MON4D3/LuaSnip" },
+      { "rafamadriz/friendly-snippets" },
+      { 'saadparwaiz1/cmp_luasnip' },
+
       -- Custom Stuff
-      {"jose-elias-alvarez/nvim-lsp-ts-utils"},
+      { "jose-elias-alvarez/nvim-lsp-ts-utils" },
     }
   }
   -- Treesitter --
-  use({
-    "nvim-treesitter/nvim-treesitter",
-    requires = { "neovim/nvim-lspconfig" },
-    run = ":TSUpdate",
-  })
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = function()
+      local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+      ts_update()
+    end,
+  }
 
   -- Telescope --
   use({
@@ -95,9 +98,14 @@ local function packer_startup()
   use({ "luisiacc/gruvbox-baby" })
   use({ "folke/tokyonight.nvim" })
   use({ "rebelot/kanagawa.nvim" })
-
-  -- Rust
-  -- use({"simrat39/rust-tools.nvim"})
+  -- diagflow
+  -- ttps://github.com/dgagn/diagflow.nvim
+  use({
+    'dgagn/diagflow.nvim',
+    config = function()
+      require('diagflow').setup()
+    end
+  })
 end
 
 packer_verify()
